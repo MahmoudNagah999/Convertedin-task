@@ -14,9 +14,9 @@ class UserFactorySeeder extends Seeder
     public function run(): void
     {
         // non-admin users
-        User::factory()->count(10)->create();
+        User::factory()->count(10000)->create();
 
         // admin users
-        User::factory()->count(10)->admin()->create();
+        User::factory()->count(100)->admin()->create();
     }
 }

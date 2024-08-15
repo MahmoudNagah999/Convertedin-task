@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Statistics;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('tasks', TaskController::class)->only(['index', 'create', 'store']);
+
+Route::get('statistics', Statistics::class);
