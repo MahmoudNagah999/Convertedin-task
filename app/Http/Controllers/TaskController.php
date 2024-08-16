@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTaskRequest;
+use Illuminate\Pagination\Paginator;
 
 class TaskController extends Controller
 {
@@ -12,7 +15,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return view('tasks.index');
+        $tasks = Task::with(['assigned_to', 'assigned_by'])->paginate(10);
+
+        return view('tasks.index', compact('tasks'));
     }
 
     /**
@@ -20,15 +25,25 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('tasks.create');
+        $admins = User::where('is_admin', '1')->orderBy('name')->get();
+        $users = User::where('is_admin', '0')->orderBy('name')->get();
+
+        return view('tasks.create',[
+            'admins' => $admins,
+            'users' => $users
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTaskRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        Task::create($validated);
+        
+        return redirect()->route('tasks.index');
     }
 
     /**

@@ -11,6 +11,7 @@ class Statistics extends Controller
      */
     public function __invoke(Request $request)
     {
+        // $users = User::count();
         return view('statistics');
     }
 }

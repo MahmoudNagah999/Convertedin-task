@@ -15,10 +15,9 @@ use App\Http\Controllers\TaskController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
 
-Route::resource('tasks', TaskController::class)->only(['index', 'create', 'store']);
+Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
+Route::post('/tasks/store', [TaskController::class, 'store'])->name('tasks.store');
 
 Route::get('statistics', Statistics::class);

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
+            $table->unsignedBigInteger('assigned_to_id');
+            $table->unsignedBigInteger('assigned_by_id');
             $table->foreign('assigned_to_id')->references("id")->on("users")->onDelete('cascade');
             $table->foreign('assigned_by_id')->references("id")->on("users")->onDelete('cascade');
             $table->timestamps();
