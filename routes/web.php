@@ -3,6 +3,7 @@
 use App\Http\Controllers\Statistics;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,6 @@ Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.crea
 Route::post('/tasks/store', [TaskController::class, 'store'])->name('tasks.store');
 
 Route::get('statistics', Statistics::class);
+
+Route::get('/users/search', [UserController::class, 'searchUsers'])->name('users.search');
+Route::get('/admin/search', [UserController::class, 'searchAdmin'])->name('admin.search');

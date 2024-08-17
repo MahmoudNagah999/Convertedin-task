@@ -9,11 +9,11 @@
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-1">
                 <div>
                     <label class="text-gray-700 dark:text-gray-200">Admin Name</label>
-                    <select name="assigned_by_id" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" style="max-height: 150px; overflow-y: auto;">
+                    <select name="assigned_by_id" id= "admin-search"class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" style="max-height: 150px; overflow-y: auto;">
                         <option> </option>
-                        @foreach ($admins as $admin)
+                        {{-- @foreach ($admins as $admin)
                         <option value="{{$admin->id}}">{{$admin->name}}</option>
-                        @endforeach
+                        @endforeach --}}
                     </select>
                 </div>
                 
@@ -26,14 +26,11 @@
                     <label class="text-gray-700 dark:text-gray-200">Description</label>
                     <textarea name="description" id="textarea" type="textarea" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
                 </div>
-
+                
                 <div>
                     <label class="text-gray-700 dark:text-gray-200">Assigned To</label>
-                    <select name="assigned_to_id" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                    <select name="assigned_to_id" id="user-search" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                         <option> </option>
-                        @foreach ($users as $user)
-                            <option value="{{$user->id}}"> {{$user->name}}</option>
-                        @endforeach
                     </select>
                 </div>
 
@@ -46,4 +43,53 @@
     </section>
 
 </main>
+
+<script>
+$(document).ready(function() {
+    $('#user-search').select2({
+        placeholder: 'Select a user',
+        minimumInputLength: 2,
+        ajax: {
+            url: '{{ route("users.search") }}',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    q: params.term // search term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        }
+    });
+});
+
+$(document).ready(function() {
+    $('#admin-search').select2({
+        placeholder: 'Select a admin',
+        minimumInputLength: 2,
+        ajax: {
+            url: '{{ route("admin.search") }}',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    q: params.term // search term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        }
+    });
+});
+
+</script>
 @include('partials.footer')

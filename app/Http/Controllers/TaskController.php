@@ -6,7 +6,6 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTaskRequest;
-use Illuminate\Pagination\Paginator;
 
 class TaskController extends Controller
 {
@@ -26,11 +25,9 @@ class TaskController extends Controller
     public function create()
     {
         $admins = User::where('is_admin', '1')->orderBy('name')->get();
-        $users = User::where('is_admin', '0')->orderBy('name')->get();
 
         return view('tasks.create',[
             'admins' => $admins,
-            'users' => $users
         ]);
     }
 
