@@ -1,9 +1,7 @@
 @include('partials.header')
 @include('partials.nav')
-{{-- @include('partials.banner') --}}
 
 <main>
-    <!-- component -->
 <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
 <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
 
@@ -43,7 +41,6 @@
 
         <tbody>
           @foreach ($tasks as $task)
-          {{-- @dd($task)   --}}
           <tr>
               <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
                 {{ $task->title }}
